@@ -9,6 +9,7 @@ El proyecto tiene las siguientes dependencias:
 - pandas
 - tkinter
 - matplotlib
+- mysqlclient
 
 Se deben instalar con `pip` para poder ejecutar el proyecto.
 

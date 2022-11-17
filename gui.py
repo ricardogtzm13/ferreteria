@@ -1,12 +1,13 @@
 from tkinter import *
 from tkinter import ttk
-import db
+import pandas
+from db import db
 class GUI:
 	def __init__(self):
 		self.root = Tk()
-		self.frm = ttk.Frame(root, padding=10)
-		self.frm.grid(self)
-	def setCallbacks(callback0, callback1, callback2, callback3, callback4):
+		self.frm = ttk.Frame(self.root, padding=10)
+		self.frm.grid()
+	def setCallbacks(self, callback0, callback1, callback2, callback3, callback4):
 		btn = ttk.Button(self.frm, text="Producto más vendido", command=callback0)
 		btn.grid(column=0, row=0, padx=10)
 
@@ -27,3 +28,6 @@ class GUI:
 		btn = ttk.Button(self.frm, text="Mostrar tabla", command=showTable)
 		btn.grid(column=1, row=1, padx=10)
 		self.listbox = tk.Listbox(self.frm,100)
+	def show(self):
+		self.root.mainloop()
+gui = GUI()

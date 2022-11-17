@@ -1,8 +1,8 @@
 import pandas
 from sqlalchemy import create_engine
-
 class DB:
 	def __init__(self, user : str, passwd : str, db : str, host : str):
-		self.engine = create_engine("mariadb:///?User={user}&;Password={passwd}&Database={db}&Server={host}}&Port=3306".format(user=user, passwd=passwd, db=db, host=host))
-	def execute(query : str):
-		return pandas.read_sql(query, engine)
+		self.engine = create_engine("mysql://{}:{}@{}/{}".format(user, passwd, host, db))
+	def execute(self, query : str):
+		return pandas.read_sql(query, self.engine)
+db = DB('lupercio', 'richieirvingaxelcuceiperro', 'ferreteria', 'moralestorres.dev')
