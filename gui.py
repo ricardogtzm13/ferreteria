@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import tkinter as tk
 import pandas
 from db import db
 class GUI:
@@ -24,10 +25,12 @@ class GUI:
 		btn.grid(column=0, row=4, padx=10)
 	def setListbox(self, tables : list, showTable):
 		self.var = StringVar()
-		ttk.Combobox(frm, values=tables, textvariable=self.var).grid(column=1, row=0)
+		ttk.Combobox(self.frm, values=tables, textvariable=self.var).grid(column=1, row=0)
 		btn = ttk.Button(self.frm, text="Mostrar tabla", command=showTable)
 		btn.grid(column=1, row=1, padx=10)
-		self.listbox = tk.Listbox(self.frm,100)
+		self.listbox = tk.Listbox(self.frm)
+		ttk.Label(self.frm, text="").grid(column=3, row=0)
+		self.listbox.grid(column=4, row=0)
 	def show(self):
 		self.root.mainloop()
 gui = GUI()
