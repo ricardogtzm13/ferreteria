@@ -23,11 +23,7 @@ class GUI:
 
 		btn = ttk.Button(self.frm, text="Productos y clientes frecuentes", command=callback4)
 		btn.grid(column=0, row=4, padx=10)
-	def setListbox(self, tables : list, showTable):
-		self.var = StringVar()
-		ttk.Combobox(self.frm, values=tables, textvariable=self.var).grid(column=1, row=0)
-		btn = ttk.Button(self.frm, text="Mostrar tabla", command=showTable)
-		btn.grid(column=1, row=1, padx=10)
+	def setListbox(self):
 		self.listbox = tk.Listbox(self.frm)
 		ttk.Label(self.frm, text="").grid(column=3, row=0)
 		self.listbox.grid(column=4, row=0)

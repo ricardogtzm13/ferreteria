@@ -61,11 +61,3 @@ def fn5():
 	productos = db.execute("SELECT productos.Nombre AS nombre, COUNT(productopedido.CodigoProducto) AS cuenta FROM productopedido JOIN productos ON productopedido.CodigoProducto = productos.Codigo GROUP BY productopedido.CodigoProducto LIMIT 5").to_dict()
 	for i in productos['nombre'].keys():
 		gui.listbox.insert(cnt+i, "{} --- ({})".format(productos['nombre'][i], productos['cuenta'][i]))
-
-def tables():
-	global db
-	df = db.execute("SHOW TABLES")
-	return df['Tables_in_ferreteria'].tolist()
-def showTable():
-	global gui
-	df = db.execute("SELECT * FROM {}".format(gui.var.get()))
