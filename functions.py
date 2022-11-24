@@ -12,7 +12,7 @@ def fn1():
 		indice +=  1
 		dic[producto["año"][i]]=producto["cuenta"][i]
 		gui.listbox.insert(indice, "%s --- (%s)" % (producto["año"][i], producto["cuenta"][i]))
-		
+
 	plt.bar(dic.keys(), dic.values())
 	plt.xlabel("Año")
 	plt.ylabel("Ventas")
@@ -20,7 +20,19 @@ def fn1():
 	plt.show()
 def fn2():
 	global db
-	pass
+	indice = 0
+	dic = {}
+	montos = db.execute("SELECT MONTHNAME(Fecha) AS mes, SUM(Monto) AS suma FROM pedido WHERE Fecha BETWEEN '2022-08-01' AND '2022-11-31'")
+	for i in montos["mes"].keys():
+		indice +=  1
+		dic[montos["mes"][i]] = montos["suma"][i]
+		gui.listbox.insert(indice, "%s --- (%s)" % (montos["mes"][i], montos["suma"][i]))
+	plt.bar(dic.keys(), dic.values())
+	plt.xlabel("Mes")
+	plt.ylabel("Monto")
+	plt.title("Gráfica Montos")
+	plt.show()
+
 def fn3():
 	global db, gui
 	moda = db.execute("SELECT * FROM productopedido")['CodigoProducto'].mode().tolist()[0]
@@ -36,7 +48,7 @@ def fn4():
 		indice +=  1
 		dic[empleados["nombreEmpleado"][i]]=empleados["cuenta"][i]
 		gui.listbox.insert(indice, "%s --- (%s)" % (empleados["nombreEmpleado"][i], empleados["cuenta"][i]))
-		
+
 	plt.bar(dic.keys(), dic.values())
 	plt.xlabel("Empleado")
 	plt.ylabel("Ventas")
