@@ -54,12 +54,14 @@ def fn4():
 	plt.show()
 def fn5():
 	global db, gui
-	moda = db.execute("SELECT * FROM productopedido")['CodigoProducto'].mode().tolist()[0]
-	moda2 = db.execute("SELECT * FROM pedido")['CodigoCliente'].mode().tolist()[0]
-	clientes = db.execute("SELECT cliente.Nombre AS nombreCliente FROM productopedido JOIN pedido ON productopedido.CodigoPedido = pedido.Codigo JOIN cliente ON cliente.Codigo = pedido.CodigoCliente WHERE CodigoProducto={}".format(moda))['nombreCliente'].unique().tolist()
-	clientes = db.execute("SELECT cliente.Nombre AS nombreCliente FROM productopedido JOIN pedido ON productopedido.CodigoPedido = pedido.Codigo JOIN cliente ON cliente.Codigo = pedido.CodigoCliente WHERE CodigoProducto={}".format(moda))['nombreCliente'].unique().tolist()
-	for i in range(len(clientes)):
-		gui.listbox.insert(i, clientes[i])
+	clientes = db.execute("SELECT cliente.Nombre AS nombre, COUNT(productopedido.CodigoPedido) AS cuenta FROM productopedido JOIN pedido ON productopedido.CodigoPedido = pedido.Codigo JOIN cliente ON cliente.Codigo = pedido.CodigoCliente GROUP BY pedido.CodigoCliente LIMIT 5").to_dict()
+	for i in clientes['nombre'].keys():
+		gui.listbox.insert(i, "{} --- ({})".format(clientes['nombre'][i], clientes['cuenta'][i]))
+	cnt = len(clientes['nombre'])
+	productos = db.execute("SELECT productos.Nombre AS nombre, COUNT(productopedido.CodigoProducto) AS cuenta FROM productopedido JOIN productos ON productopedido.CodigoProducto = productos.Codigo GROUP BY productopedido.CodigoProducto LIMIT 5").to_dict()
+	for i in productos['nombre'].keys():
+		gui.listbox.insert(cnt+i, "{} --- ({})".format(productos['nombre'][i], productos['cuenta'][i]))
+
 def tables():
 	global db
 	df = db.execute("SHOW TABLES")
