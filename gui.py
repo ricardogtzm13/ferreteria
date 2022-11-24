@@ -24,7 +24,7 @@ class GUI:
 		btn = ttk.Button(self.frm, text="Productos y clientes frecuentes", command=callback4)
 		btn.grid(column=0, row=4, padx=10)
 	def setListbox(self):
-		self.listbox = tk.Listbox(self.frm)
+		self.listbox = tk.Listbox(self.frm, height=15, width=40)
 		ttk.Label(self.frm, text="").grid(column=3, row=0)
 		self.listbox.grid(column=4, row=0)
 	def show(self):
